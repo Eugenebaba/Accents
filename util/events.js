@@ -12,7 +12,7 @@ $(window).ready(function() {
 });
 
 // when keypressed
-$(window).on('keypress', event => {
+document.addEventListener("keypress", event => {
   eventCount++;
 
   // detects if we are using the shortcut and pressing the numbers
@@ -26,19 +26,20 @@ $(window).on('keypress', event => {
   if(!keyDown && Object.keys(accentLetters).indexOf(event.key) > 0) {
     keyDown = true;
 
+    // check if after some time the key is still pressed
     setTimeout(function() {
-      // check if after some time the key is still pressed
       keyDown ? eventHandler(event) : null;
     }, KEY_PRESS_TIMEOUT);
     
   }
 }).on('keyup', event => {
+  
+  // shift
   if(event.keyCode != 16) {
     keyDown = false;
     eventCount = 0;
   }
 });
-
 
 // handles which pag
 function eventHandler(event) {
